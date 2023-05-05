@@ -12,14 +12,56 @@ using System.Windows.Forms;
 
 namespace PI_Zadaća1
 {
+    
 
     public partial class Form1 : Form
     {
+        private UserFileReader fileReader;
+        private UserParser userParser;
+        private UserDisplayer userDisplayer;
 
 
         public Form1()
         {
             InitializeComponent();
+
+
+            fileReader = new UserFileReader("");
+            userParser = new UserParser();
+            userDisplayer = new UserDisplayer();
+
+            button1.Click += button1_Click;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Tekstualne datoteke (*.txt)|*.txt|Sve datoteke (*.*)|*.*";
+            openFileDialog.Title = "Odaberi datoteku";
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string putDat = openFileDialog.FileName;
+                LoadFileContent(putDat); 
+            }
+        }
+
+        private void LoadFileContent(string putDat)
+        {
+            
+            string fileContent = File.ReadAllText(putDat);
+
+            
+            string[] lines = fileContent.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+
+            
+            textBox7.Text = lines[0].Substring(lines[0].IndexOf("=") + 1).Trim(); 
+            textBox2.Text = lines[1].Substring(lines[1].IndexOf("=") + 1).Trim(); 
+            textBox3.Text = lines[2].Substring(lines[2].IndexOf("=") + 1).Trim(); 
+            textBox4.Text = lines[3].Substring(lines[3].IndexOf("=") + 1).Trim(); 
+            textBox5.Text = lines[4].Substring(lines[4].IndexOf("=") + 1).Trim(); 
+            textBox6.Text = lines[5].Substring(lines[5].IndexOf("=") + 1).Trim(); 
+            textBox8.Text = lines[6].Substring(lines[6].IndexOf("=") + 1).Trim(); 
         }
 
         private void Form1_Load(object sender, EventArgs e)
