@@ -26,6 +26,7 @@ namespace PI_Zadaća1
         {
 
         }
+
     }
     public class Korisnik
     {
@@ -83,6 +84,41 @@ namespace PI_Zadaća1
         {
             brojac++;
             Console.WriteLine($"Broj pristupa datoteci: {brojac}");
+        }
+    }
+
+
+    public class UserParser
+    {
+        public Korisnik ParseData(string datKorisnik)
+        {
+            string[] fields = datKorisnik.Split(';');
+
+            string ime = fields[0];
+            string prezime = fields[1];
+            int godinaRodjenja;
+            int.TryParse(fields[2], out godinaRodjenja);
+            string gradRodjenja = fields[3];
+            string fakultet = fields[4];
+            string uloga = fields[5];
+            string ovisi = fields[6];
+
+            Korisnik user = new Korisnik(ime, prezime, godinaRodjenja, gradRodjenja, fakultet, uloga, ovisi);
+            return user;
+        }
+    }
+
+    public class UserDisplayer
+    {
+        public void DisplayUser(Korisnik user)
+        {
+            Console.WriteLine($"{user.Ime}");
+            Console.WriteLine($"{user.Prezime}");
+            Console.WriteLine($"{user.Godina}");
+            Console.WriteLine($"{user.Grad}");
+            Console.WriteLine($"{user.Fakultet}");
+            Console.WriteLine($"{user.Uloga}");
+            Console.WriteLine($"{user.Ostalo}");
         }
     }
 
